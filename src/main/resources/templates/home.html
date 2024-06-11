@@ -1,21 +1,15 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog application homepage</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <title>Home Page</title>
 </head>
 <body>
 <div class="post" th:each="post : ${posts}">
     <h2><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}">Title</a></h2>
     <p th:text="${post.body}">body text</p>
-    <p th:if="${post.createdAt != null}" th:text="${#temporals.format(post.createdAt, 'MMMM d, yyyy')}">Posted_at: </p>
+    <p th:if="${post.createdAt != null}" th:text="'Posted at: ' + ${#temporals.format(post.createdAt, 'MMMM d, yyyy')}"></p>
+    <p th:if="${post.updatedAt != null}" th:text="'Updated at: ' + ${#temporals.format(post.updatedAt, 'MMMM d, yyyy')}"></p>
     <br>
 </div>
-
-
 </body>
 </html>
