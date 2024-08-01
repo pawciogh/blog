@@ -5,11 +5,11 @@
 </head>
 <body>
 <div class="post" th:each="post : ${posts}">
+    <p th:text="'Written by: ' + ${post.account.firstName + ' ' + post.account.lastName}"></p>
     <h2><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}">Title</a></h2>
     <p th:text="${post.body}">body text</p>
     <p th:if="${post.createdAt != null}" th:text="'Posted at: ' + ${#temporals.format(post.createdAt, 'MMMM d, yyyy')}"></p>
     <p th:if="${post.updatedAt != null}" th:text="'Updated at: ' + ${#temporals.format(post.updatedAt, 'MMMM d, yyyy')}"></p>
-    <p th:text="'Account ID: ' + ${post.account.id}"></p> <!-- Display the account id -->
     <br>
 </div>
 </body>

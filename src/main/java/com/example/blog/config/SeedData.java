@@ -1,15 +1,16 @@
 package com.example.blog.config;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import com.example.blog.models.Account;
 import com.example.blog.models.Post;
 import com.example.blog.services.AccountService;
 import com.example.blog.services.PostService;
 import com.github.javafaker.Faker;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class SeedData implements CommandLineRunner {
@@ -28,12 +29,16 @@ public class SeedData implements CommandLineRunner {
         if (posts.isEmpty()) { // Check if there are no existing posts
             Faker faker = new Faker();
 
-            // Create an Account
-            Account account = new Account();
-            // Set properties for the account here
-            accountService.save(account); // Save the Account
-
             for (int i = 0; i < 10; i++) { // Create 10 random posts
+                
+                Account account = new Account();
+                account.setEmail(faker.internet().emailAddress());
+                account.setPassword("password");
+                account.setFirstName(faker.name().firstName());
+                account.setLastName(faker.name().lastName());
+                accountService.save(account); // Save the Account
+
+
                 Post post = new Post();
                 post.setTitle(faker.book().title()); // Generate a random title
                 post.setBody(faker.lorem().paragraph()); // Generate a random body
